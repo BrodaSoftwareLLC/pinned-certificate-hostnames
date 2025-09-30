@@ -10,6 +10,9 @@ Hosted on Cloudflare:
 * The [panw-compiled-without-comments.txt](https://lists.broda.io/pinned-certificates/panw-compiled-without-comments.txt) file contains only the hostnames and specific for Palo Alto Networks devices.
 * The [file-validation.hash](https://lists.broda.io/pinned-certificates/file-validation.hash) file contains a sha256 hash of the 3 text files above.
 
+# Disclaimer
+By downloading any file linked in this repository/or externally you accept full responsibility for its use and agree that the maintainers bear no liability for any outcomes.
+
 # Directory Structure
 ```
 data/

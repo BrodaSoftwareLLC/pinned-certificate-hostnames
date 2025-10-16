@@ -1,4 +1,4 @@
-# List compiled on 2025-09-30 04:51:38 UTC
+# List compiled on 2025-10-16 17:44:55 UTC
 *.*.fna.fbcdn.net
 *.*.prod.zpath.net
 *.acrobat.com
@@ -150,6 +150,7 @@ exp.wg.spotify.com
 f-log-win-extension.grammarily.io
 f-log.grammarly.io
 falcon.crowdstrike.com
+fe3cr.delivery.mp.microsoft.com
 fpdownload.adobe.com
 fpinit.itunes.apple.com
 gateway.discord.gg
@@ -316,6 +317,8 @@ verify.protonvpn.com
 video-ak.cdn.spotify.com.splitter-eip.akadns.net
 video-akpcw-cdn-spotify-com.akamaized.net
 video-fa.scdn.co
+wdcalt.microsoft.com
+wdcp.microsoft.com
 weather-data.apple.com
 web.facebook.com
 win-extension.femetrics.grammarly.io

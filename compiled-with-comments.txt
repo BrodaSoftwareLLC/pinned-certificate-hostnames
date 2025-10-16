@@ -1,4 +1,4 @@
-# List compiled on 2025-09-30 04:51:38 UTC
+# List compiled on 2025-10-16 17:44:55 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -536,6 +536,14 @@ tr.teams.microsoft.com
 ### update
 #### Microsoft Updates - 2024-10-25
 slscr.update.microsoft.com
+
+# vendors
+## microsoft
+### wsl
+#### Windows Subsystem Linux - 2025-10-16
+fe3cr.delivery.mp.microsoft.com
+wdcp.microsoft.com
+wdcalt.microsoft.com
 
 # vendors
 ## netgear

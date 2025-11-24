@@ -1,4 +1,4 @@
-# List compiled on 2025-11-24 05:12:34 UTC
+# List compiled on 2025-11-24 05:16:25 UTC
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
 *.acrobat.com/
@@ -100,7 +100,6 @@ blz-contentstack-images.akamaized.net/
 blzprofile.akamaized.net/
 bnetaccount.akamaized.net/
 bnetcmsus-a.akamaihd.net/
-c.strava.com/
 cdn.discordapp.com/
 cdn.fbsbx.com/
 cdn.flyaa.aa.com/

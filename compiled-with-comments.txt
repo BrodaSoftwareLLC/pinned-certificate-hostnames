@@ -1,4 +1,4 @@
-# List compiled on 2025-10-16 17:50:26 UTC
+# List compiled on 2025-11-24 05:12:34 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -337,6 +337,11 @@ ms-vscode-remote.gallery.vsassets.io
 ms-vscode-remote.gallerycdn.vsassets.io
 github.gallerycdn.vsassets.io
 googlecloudtools.gallerycdn.vsassets.io
+
+# sports
+## strava
+### Strava - 2025-11-23
+c.strava.com
 
 # transport
 ## uber

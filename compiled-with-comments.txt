@@ -1,4 +1,4 @@
-# List compiled on 2025-11-26 19:24:44 UTC
+# List compiled on 2025-11-26 19:39:20 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -551,6 +551,7 @@ v10.vortex-win.data.microsoft.com
 fe3cr.delivery.mp.microsoft.com
 insiderservice.microsoft.com
 *.prod.do.dsp.mp.microsoft.com
+*-prod.do.dsp.mp.microsoft.com
 
 # vendors
 ## microsoft

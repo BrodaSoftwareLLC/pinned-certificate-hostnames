@@ -7,4 +7,4 @@ fe2.update.microosft.com
 v10.vortex-win.data.microsoft.com
 fe3cr.delivery.mp.microsoft.com
 insiderservice.microsoft.com
-geo.prod.do.dsp.mp.microsoft.com
+*.prod.do.dsp.mp.microsoft.com

@@ -1,4 +1,4 @@
-# List compiled on 2025-11-24 05:16:25 UTC
+# List compiled on 2025-11-26 18:15:46 UTC
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
 *.acrobat.com/
@@ -131,6 +131,7 @@ devcom.up.netgear.com/
 device.login.microsoftonline.com/
 discord.com/
 discordapp.net/
+displaycatalog.mp.microsoft.com/
 dl.acronis.com/
 dl.discordapp.net/
 dlmping2.adobe.com/
@@ -150,6 +151,9 @@ exp.wg.spotify.com/
 f-log-win-extension.grammarily.io/
 f-log.grammarly.io/
 falcon.crowdstrike.com/
+fe2.update.microosft.com/
+fe3.delivery.mp.microsoft.com/
+fe3cr.delivery.mp.microsoft.com/
 fe3cr.delivery.mp.microsoft.com/
 fpdownload.adobe.com/
 fpinit.itunes.apple.com/
@@ -191,6 +195,7 @@ image-cdn-fa.spotifycdn.com/
 in.lc.prod.eu.cs.paloaltonetworks.com/
 in.lc.prod.us.cs.paloaltonetworks.com/
 init.ess.apple.com/
+insiderservice.microsoft.com/
 intunemaape1.eus.attest.azure.net/
 intunemaape10.weu.attest.azure.net/
 intunemaape11.weu.attest.azure.net/
@@ -218,6 +223,7 @@ lic.lc.prod.us.cs.paloaltonetworks.com/
 license-portal-eb.studio3t.com/
 lineup-images.scdn.co/
 lineup-images.scdn.co/
+livetileedge.mdsx.mp.microsoft.com/
 locator.cgnx.net/
 login.live.com/
 login.swi-dre.com/
@@ -271,6 +277,7 @@ sentry.io/
 services.gradle.org/
 signin.delta.com/
 skl.apple.com/
+sls.update.microsoft.com/
 slscr.update.microsoft.com/
 smetrics.com/
 smp-paymentservices.apple.com/
@@ -281,6 +288,7 @@ status.discord.com/
 status.proton.me/
 stg-gov-hawkeye.services-edge.paloaltonetworks.com/
 stg-gov-iot.services-edge.paloaltonetworks.com/
+storeedgefd.dsx.mp.microsoft.com/
 substrate.office.net/
 sus.sophosupd.com/
 sw-update.obdev.at/
@@ -309,6 +317,7 @@ us.main.endpoint.ingress.rapid7.com/
 us.storage.endpoint.ingress.rapid7.com/
 us.storage.main.endpoint.ingress.rapid7.com/
 us2.api.concursolutions.com/
+v10.vortex-win.data.microsoft.com/
 verify-api.protonmail.com/
 verify-api.protonvpn.com/
 verify.proton.me/

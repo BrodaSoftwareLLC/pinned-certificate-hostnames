@@ -1,4 +1,4 @@
-# List compiled on 2025-11-24 05:16:25 UTC
+# List compiled on 2025-11-26 18:15:46 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -536,6 +536,20 @@ tr.teams.microsoft.com
 ### update
 #### Microsoft Updates - 2024-10-25
 slscr.update.microsoft.com
+
+# vendors
+## microsoft
+### windows-store
+#### Windows Store - 2025-11-26
+sls.update.microsoft.com
+storeedgefd.dsx.mp.microsoft.com
+fe3.delivery.mp.microsoft.com
+displaycatalog.mp.microsoft.com
+livetileedge.mdsx.mp.microsoft.com
+fe2.update.microosft.com
+v10.vortex-win.data.microsoft.com
+fe3cr.delivery.mp.microsoft.com
+insiderservice.microsoft.com
 
 # vendors
 ## microsoft

@@ -1,12 +1,17 @@
-# List compiled on 2025-11-26 19:39:20 UTC
+# List compiled on 2025-12-23 19:58:18 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
+*.accounts.firefox.com/
 *.acrobat.com/
 *.activeupdate.trendmicro.com/
+*.addons.mozilla.net/
+*.addons.mozilla.org/
 *.aot.trendmicro.com/
 *.api.snapchat.com/
 *.bam.nr-data.net/
+*.cdn.mozilla.net/
+*.cdn.mozilla.org/
 *.chat.snapchat.com/
 *.cloud.zoom.us/
 *.echocdn.com/
@@ -22,6 +27,7 @@
 *.lc.prod.us.cs.paloaltonetworks.com/
 *.manage.trellix.com/
 *.manage.trendmicro.com/
+*.media.mozilla.com/
 *.mgcp.trendmicro.com/
 *.newrelic.com/
 *.privateinternetaccess.com/

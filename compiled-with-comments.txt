@@ -1,4 +1,4 @@
-# List compiled on 2025-11-26 19:39:20 UTC
+# List compiled on 2025-12-23 19:58:18 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -560,6 +560,16 @@ insiderservice.microsoft.com
 fe3cr.delivery.mp.microsoft.com
 wdcp.microsoft.com
 wdcalt.microsoft.com
+
+# vendors
+## mozilla
+### Mozilla - 2025-12-23 https://wiki.mozilla.org/SecurityEngineering/Public_Key_Pinning
+*.addons.mozilla.org
+*.addons.mozilla.net
+*.accounts.firefox.com
+*.cdn.mozilla.org
+*.cdn.mozilla.net
+*.media.mozilla.com
 
 # vendors
 ## netgear

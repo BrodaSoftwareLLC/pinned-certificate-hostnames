@@ -1,4 +1,4 @@
-# List compiled on 2025-12-23 19:58:18 UTC
+# List compiled on 2026-02-05 00:10:26 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -32,6 +32,7 @@
 *.newrelic.com/
 *.privateinternetaccess.com/
 *.prod.do.dsp.mp.microsoft.com/
+*.push.prod.netflix.com/
 *.relay.teams.microsoft.com/
 *.signal.org/
 *.snapchat.com/
@@ -42,6 +43,7 @@
 *.uber.com/
 *.url.trendmicro.com/
 *.whatsapp.net/
+*.ws.prod.cloud.netflix.com/
 *.x.cp.wd.microsoft.com/
 *.xbc.trendmicro.com/
 *.xdr.trendmicro.com/
@@ -69,6 +71,7 @@ agents.us1.us-east-2.dem.prismaaccess.com/
 alert-eu.battle.net/
 alert-us.battle.net/
 alive.github.com/
+amp-api.music.apple.com/
 amp-api.podcasts.apple.com/
 ap-gew4.spotify.com/
 ap-guc3.spotify.com/

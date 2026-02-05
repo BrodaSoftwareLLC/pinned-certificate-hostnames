@@ -1,4 +1,4 @@
-# List compiled on 2025-12-23 19:58:18 UTC
+# List compiled on 2026-02-05 00:10:26 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -134,6 +134,12 @@ media1.giphy.com
 media2.giphy.com
 media3.giphy.com
 media4.giphy.com
+
+# media
+## netflix
+### Netflix - 2026-02-04
+*.ws.prod.cloud.netflix.com
+*.push.prod.netflix.com
 
 # media
 ## spotify
@@ -407,6 +413,12 @@ attester.gateway.icloud.com
 ### maps
 #### Apple Maps - 2024-02-09
 gsp*-ssl.ls.apple.com
+
+# vendors
+## apple
+### music
+#### Apple Music - 2026-02-04
+amp-api.music.apple.com
 
 # vendors
 ## apple

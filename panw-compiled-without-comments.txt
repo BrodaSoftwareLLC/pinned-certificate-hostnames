@@ -1,4 +1,4 @@
-# List compiled on 2026-02-05 00:10:26 UTC
+# List compiled on 2026-04-03 07:53:15 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -19,6 +19,7 @@
 *.fbs25.trendmicro.com/
 *.fna.fbcdn.net/
 *.gfrbridge.trendmicro.com/
+*.i.tplinkcloud.com/
 *.icrc.trendmicro.com/
 *.iot.services-edge.paloaltonetworks.com/
 *.iterm2.com/

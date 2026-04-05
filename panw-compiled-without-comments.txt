@@ -1,4 +1,4 @@
-# List compiled on 2026-04-03 07:53:15 UTC
+# List compiled on 2026-04-05 14:57:40 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -241,6 +241,7 @@ login.live.com/
 login.swi-dre.com/
 login5.spotify.com/
 mail-api.proton.me/
+mail.proton.me/
 marketplace.visualstudio.com/
 mce.cisco.com/
 mcs2-cloudstation-us-east-1.prod.hydra.sophos.com/

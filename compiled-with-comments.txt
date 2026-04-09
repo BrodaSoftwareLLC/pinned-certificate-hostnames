@@ -1,4 +1,4 @@
-# List compiled on 2026-04-05 14:57:40 UTC
+# List compiled on 2026-04-09 15:06:41 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -485,6 +485,14 @@ crowdstrike.com
 cloudsink.net
 ts01-b.cloudsink.net
 lfodown01-b.cloudsink.net
+
+# vendors
+## eset
+### ESET - 2026-04-09
+edf.eset.com
+ts.eset.com
+r.edtd.eset.com
+ipm.eset.com
 
 # vendors
 ## meta

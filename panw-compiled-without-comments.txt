@@ -1,4 +1,4 @@
-# List compiled on 2026-04-05 14:57:40 UTC
+# List compiled on 2026-04-09 15:06:41 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -153,6 +153,7 @@ dlp.stg-gov-hawkeye.services-edge.paloaltonetworks.com/
 dlp.uk.hawkeye.services-edge.paloaltonetworks.com/
 eamodio.gallerycdn.vsassets.io/
 ecs.nel.measure.office.net/
+edf.eset.com/
 edge-mqtt.facebook.com/
 endpoint.ingress.rapid7.com/
 enforcer.gov-hawkeye.services-edge.paloaltonetworks.com/
@@ -224,6 +225,7 @@ intunemaape6.ncus.attest.azure.net/
 intunemaape7.neu.attest.azure.net/
 intunemaape8.neu.attest.azure.net/
 intunemaape9.neu.attest.azure.net/
+ipm.eset.com/
 keybase.io/
 l.instagram.com/
 latency.discord.media/
@@ -278,6 +280,7 @@ protonmail.ch/
 protonmail.com/
 protonvpn.ch/
 protonvpn.com/
+r.edtd.eset.com/
 rupload.facebook.com/
 scontent-sea1-1.cdninstagram.com/
 scontent.cdninstagram.com/
@@ -314,6 +317,7 @@ sylvan.apple.com/
 tickrmeter.io/
 tr.teams.microsoft.com/
 trace.svc.ui.com/
+ts.eset.com/
 ts01-b.cloudsink.net/
 update.filezilla-project.org/
 update.googleapis.com/

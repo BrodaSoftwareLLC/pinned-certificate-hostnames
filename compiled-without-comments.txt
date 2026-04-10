@@ -1,4 +1,4 @@
-# List compiled on 2026-04-10 00:19:35 UTC
+# List compiled on 2026-04-10 00:25:48 UTC
 *-prod.do.dsp.mp.microsoft.com
 *.*.fna.fbcdn.net
 *.*.prod.zpath.net
@@ -87,7 +87,6 @@ api.lc.prod.eu.cs.paloaltonetworks.com
 api.lc.prod.us.cs.paloaltonetworks.com
 api.protonmail.ch
 api.protonvpn.ch
-api.rds.bragi.cloud
 api.soc.trellix.com
 api.spotify.com
 api.twitter.com
@@ -128,7 +127,6 @@ cloudsink.net
 code.calibre-ebook.com
 cognito-identity.us-east-1.amazonaws.com
 configuration.apple.com
-configuration.mobile.bragi.cloud
 content-ui.battle.net
 controller.hood.cgnx.net
 crowdstrike.com
@@ -244,7 +242,6 @@ locator.cgnx.net
 login.live.com
 login.swi-dre.com
 login5.spotify.com
-maas-integrator.mobile.bragi.cloud
 mail-api.proton.me
 mail.proton.me
 marketplace.visualstudio.com

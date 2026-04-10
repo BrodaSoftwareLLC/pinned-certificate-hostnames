@@ -1,4 +1,4 @@
-# List compiled on 2026-04-09 15:06:41 UTC
+# List compiled on 2026-04-10 00:14:29 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -141,6 +141,13 @@ media4.giphy.com
 ### Netflix - 2026-02-04
 *.ws.prod.cloud.netflix.com
 *.push.prod.netflix.com
+
+# media
+## skull-candy
+### Skull-Candy - 2026-04-09
+api.rds.bragi.cloud
+maas-integrator.mobile.bragi.cloud
+configuration.mobile.bragi.cloud
 
 # media
 ## spotify

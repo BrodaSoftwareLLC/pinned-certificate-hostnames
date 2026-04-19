@@ -1,4 +1,4 @@
-# List compiled on 2026-04-19 18:44:03 UTC
+# List compiled on 2026-04-19 18:52:26 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -471,6 +471,7 @@ xp.apple.com
 ### weather
 #### Apple Weather - 2024-04-23
 weather-data.apple.com
+weatherkit.apple.com
 
 # vendors
 ## cisco

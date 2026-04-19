@@ -1,4 +1,4 @@
-# List compiled on 2026-04-19 18:44:03 UTC
+# List compiled on 2026-04-19 18:52:26 UTC
 *-prod.do.dsp.mp.microsoft.com
 *.*.fna.fbcdn.net
 *.*.prod.zpath.net
@@ -347,6 +347,7 @@ video-fa.scdn.co
 wdcalt.microsoft.com
 wdcp.microsoft.com
 weather-data.apple.com
+weatherkit.apple.com
 web.facebook.com
 win-extension.femetrics.grammarly.io
 winatp-gw-cus.microsoft.com

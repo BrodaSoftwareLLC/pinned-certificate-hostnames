@@ -4,6 +4,6 @@ gateway.instagram.com
 test-gateway.instagram.com
 l.instagram.com
 scontent.cdninstagram.com
-scontent-sea1-1.cdninstagram.com
+scontent-*.cdninstagram.com
 graph-fallback.instagram.com
 graph.instagram.com

@@ -1,4 +1,4 @@
-# List compiled on 2026-04-19 18:54:35 UTC
+# List compiled on 2026-05-17 06:50:28 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -129,6 +129,7 @@ cognito-identity.us-east-1.amazonaws.com/
 configuration.apple.com/
 content-ui.battle.net/
 controller.hood.cgnx.net/
+controlplane.tailscale.com/
 crowdstrike.com/
 d9qcypg7o58bv.cloudfront.net/
 daily-mix.scdn.co/

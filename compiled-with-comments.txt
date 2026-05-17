@@ -1,4 +1,4 @@
-# List compiled on 2026-04-19 18:54:35 UTC
+# List compiled on 2026-05-17 06:50:28 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -734,6 +734,11 @@ zoom.us
 ## private-internet-access
 ### Private Internet Access - 2024-02-09
 *.privateinternetaccess.com
+
+# vpn
+## tailscale
+### Tailscale - 2026-05-16
+controlplane.tailscale.com
 
 # weather
 ## ventusky

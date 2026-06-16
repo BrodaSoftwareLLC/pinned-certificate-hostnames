@@ -1,4 +1,4 @@
-# List compiled on 2026-06-16 19:38:51 UTC
+# List compiled on 2026-06-16 20:49:47 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -407,6 +407,12 @@ smp-paymentservices.apple.com
 ### apple-tv
 #### Apple TV - 2024-04-22
 sylvan.apple.com
+
+# vendors
+## apple
+### certificate-checks
+#### Apple Certificate Checks - 2026-06-16
+ocsp2.apple.com
 
 # vendors
 ## apple

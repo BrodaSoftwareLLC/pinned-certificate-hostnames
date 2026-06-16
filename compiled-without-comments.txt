@@ -1,4 +1,4 @@
-# List compiled on 2026-06-16 19:38:51 UTC
+# List compiled on 2026-06-16 20:49:47 UTC
 *-prod.do.dsp.mp.microsoft.com
 *.*.fna.fbcdn.net
 *.*.prod.zpath.net
@@ -270,6 +270,7 @@ ms-vscode-remote.gallerycdn.vsassets.io
 newjams-images.scdn.co
 ns.itunes.apple.com
 nydus.battle.net
+ocsp2.apple.com
 open.spotifycdn.com
 openapi.starbucks.com
 oscdn.apple.com

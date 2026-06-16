@@ -1,4 +1,4 @@
-# List compiled on 2026-06-16 19:36:12 UTC
+# List compiled on 2026-06-16 19:38:51 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -114,6 +114,7 @@ blzprofile.akamaized.net/
 bnetaccount.akamaized.net/
 bnetcmsus-a.akamaihd.net/
 calendar-api.proton.me/
+calendar.proton.me/
 cdn.discordapp.com/
 cdn.fbsbx.com/
 cdn.flyaa.aa.com/

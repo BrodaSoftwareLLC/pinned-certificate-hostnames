@@ -1,4 +1,4 @@
-# List compiled on 2026-05-17 06:50:28 UTC
+# List compiled on 2026-06-16 17:28:49 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -112,6 +112,7 @@ blz-contentstack-images.akamaized.net/
 blzprofile.akamaized.net/
 bnetaccount.akamaized.net/
 bnetcmsus-a.akamaihd.net/
+calendar-api.proton.me/
 cdn.discordapp.com/
 cdn.fbsbx.com/
 cdn.flyaa.aa.com/
@@ -282,6 +283,7 @@ protonmail.com/
 protonvpn.ch/
 protonvpn.com/
 r.edtd.eset.com/
+reports.proton.me/
 rupload.facebook.com/
 scontent-*.cdninstagram.com/
 scontent.cdninstagram.com/

@@ -1,4 +1,4 @@
-# List compiled on 2026-06-16 20:49:47 UTC
+# List compiled on 2026-06-17 22:22:08 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -129,7 +129,7 @@ mail.proton.me
 calendar-api.proton.me
 calendar.proton.me
 reports.proton.me
-*.mail.proton.me
+*.mail.me.com
 
 # media
 ## giphy

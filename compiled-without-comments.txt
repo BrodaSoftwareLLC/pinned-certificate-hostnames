@@ -1,4 +1,4 @@
-# List compiled on 2026-06-16 20:49:47 UTC
+# List compiled on 2026-06-17 22:22:08 UTC
 *-prod.do.dsp.mp.microsoft.com
 *.*.fna.fbcdn.net
 *.*.prod.zpath.net
@@ -26,7 +26,7 @@
 *.jumpcloud.com
 *.lc.prod.eu.cs.paloaltonetworks.com
 *.lc.prod.us.cs.paloaltonetworks.com
-*.mail.proton.me
+*.mail.me.com
 *.manage.trellix.com
 *.manage.trendmicro.com
 *.media.mozilla.com

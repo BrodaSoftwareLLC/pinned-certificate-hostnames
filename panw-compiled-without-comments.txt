@@ -1,4 +1,4 @@
-# List compiled on 2026-06-18 21:36:08 UTC
+# List compiled on 2026-06-18 21:38:57 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -116,6 +116,7 @@ bnetcmsus-a.akamaihd.net/
 c.strava.com/
 calendar-api.proton.me/
 calendar.proton.me/
+cdn-1.strava.com/
 cdn.discordapp.com/
 cdn.fbsbx.com/
 cdn.flyaa.aa.com/
@@ -195,6 +196,7 @@ graph-fallback.instagram.com/
 graph.facebook.com/
 graph.instagram.com/
 graph.oculus.com/
+graphql.strava.com/
 gsp*-ssl.ls.apple.com/
 guc3-dealer.g2.spotify.com/
 guc3-dealer.spotify.com/

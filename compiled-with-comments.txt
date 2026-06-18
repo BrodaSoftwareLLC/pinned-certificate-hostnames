@@ -1,4 +1,4 @@
-# List compiled on 2026-06-18 21:34:09 UTC
+# List compiled on 2026-06-18 21:36:08 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -93,7 +93,6 @@ us.actual.battle.net
 # health
 ## strava
 ### Strava - 2026-06-18
-cdn-1.strava.com
 c.strava.com
 
 # hotels

@@ -1,4 +1,4 @@
-# List compiled on 2026-06-18 21:29:54 UTC
+# List compiled on 2026-06-18 21:34:09 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -113,8 +113,10 @@ blz-contentstack-images.akamaized.net/
 blzprofile.akamaized.net/
 bnetaccount.akamaized.net/
 bnetcmsus-a.akamaihd.net/
+c.strava.com/
 calendar-api.proton.me/
 calendar.proton.me/
+cdn-1.strava.com/
 cdn.discordapp.com/
 cdn.fbsbx.com/
 cdn.flyaa.aa.com/

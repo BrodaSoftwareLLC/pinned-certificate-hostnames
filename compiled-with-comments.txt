@@ -1,4 +1,4 @@
-# List compiled on 2026-06-18 21:29:54 UTC
+# List compiled on 2026-06-18 21:34:09 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -89,6 +89,12 @@ blz-contentstack-images.akamaized.net
 blz-contentstack-assets.akamaized.net
 bnetcmsus-a.akamaihd.net
 us.actual.battle.net
+
+# health
+## strava
+### Strava - 2026-06-18
+cdn-1.strava.com
+c.strava.com
 
 # hotels
 ## hyatt

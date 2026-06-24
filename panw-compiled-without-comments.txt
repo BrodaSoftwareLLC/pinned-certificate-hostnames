@@ -1,4 +1,4 @@
-# List compiled on 2026-06-23 00:57:42 UTC
+# List compiled on 2026-06-24 14:06:58 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/

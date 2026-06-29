@@ -1,4 +1,4 @@
-# List compiled on 2026-06-24 14:06:58 UTC
+# List compiled on 2026-06-29 04:14:41 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -89,6 +89,12 @@ blz-contentstack-images.akamaized.net
 blz-contentstack-assets.akamaized.net
 bnetcmsus-a.akamaihd.net
 us.actual.battle.net
+
+# health
+## headspace
+### Headspace - 2026-06-22
+api.prod.headspace.com
+d3jyalop6jpmn2.cloudfront.net
 
 # health
 ## strava

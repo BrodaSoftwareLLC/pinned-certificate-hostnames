@@ -1,4 +1,4 @@
-# List compiled on 2026-06-24 14:06:58 UTC
+# List compiled on 2026-06-29 04:14:41 UTC
 *-prod.do.dsp.mp.microsoft.com
 *.*.fna.fbcdn.net
 *.*.prod.zpath.net
@@ -86,6 +86,7 @@ api.github.com
 api.keybase.io
 api.lc.prod.eu.cs.paloaltonetworks.com
 api.lc.prod.us.cs.paloaltonetworks.com
+api.prod.headspace.com
 api.protonmail.ch
 api.protonvpn.ch
 api.soc.trellix.com
@@ -136,6 +137,7 @@ content-ui.battle.net
 controller.hood.cgnx.net
 controlplane.tailscale.com
 crowdstrike.com
+d3jyalop6jpmn2.cloudfront.net
 d9qcypg7o58bv.cloudfront.net
 daily-mix.scdn.co
 daily-mix.scdn.co

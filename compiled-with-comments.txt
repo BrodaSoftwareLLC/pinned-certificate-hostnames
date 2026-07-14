@@ -1,4 +1,4 @@
-# List compiled on 2026-06-29 04:14:41 UTC
+# List compiled on 2026-07-14 22:46:13 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -705,6 +705,7 @@ cognito-identity.us-east-1.amazonaws.com
 sus.sophosupd.com
 sdds3.sophosupd.com
 mcs2-cloudstation-us-east-1.prod.hydra.sophos.com
+macfeedback.sophosupd.com
 
 # vendors
 ## tplink

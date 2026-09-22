@@ -1,4 +1,4 @@
-# List compiled on 2026-09-11 00:03:15 UTC
+# List compiled on 2026-09-22 18:20:59 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -655,8 +655,10 @@ enforcer.stg-gov-hawkeye.services-edge.paloaltonetworks.com
 # vendors
 ## palo-alto-networks
 ### idira
-#### Palo Alto Networks - Idira - 2026-09-10
+#### Palo Alto Networks - Idira - 2026-09-22 
 *.id.cyberark.cloud
+idaptive.app
+*.idaptive.app
 
 # vendors
 ## palo-alto-networks

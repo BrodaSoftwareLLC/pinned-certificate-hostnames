@@ -1,4 +1,4 @@
-# List compiled on 2026-09-11 00:03:15 UTC
+# List compiled on 2026-09-22 18:20:59 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -22,6 +22,7 @@
 *.i.tplinkcloud.com/
 *.icrc.trendmicro.com/
 *.id.cyberark.cloud/
+*.idaptive.app/
 *.iot.services-edge.paloaltonetworks.com/
 *.iterm2.com/
 *.jumpcloud.com/
@@ -212,6 +213,7 @@ http.fw.updates1.netgear.com/
 i-fallback.instagram.com/
 i.instagram.com/
 i.scdn.co/
+idaptive.app/
 ig.apple.com/
 image-cdn-ak.spotifycdn.com/
 image-cdn-fa.spotifycdn.com/

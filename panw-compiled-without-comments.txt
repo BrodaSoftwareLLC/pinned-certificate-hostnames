@@ -1,4 +1,4 @@
-# List compiled on 2026-09-22 18:20:59 UTC
+# List compiled on 2026-10-12 21:15:42 UTC
 *-prod.do.dsp.mp.microsoft.com/
 *.*.fna.fbcdn.net/
 *.*.prod.zpath.net/
@@ -148,6 +148,7 @@ data-feed.flightradar24.com/
 data.ventusky.com/
 dealer.spotify.com/
 default.exp-tas.com # AB testing/
+derp10c.tailscale.com/
 desktop.docker.com/
 devcom.up.netgear.com/
 device.login.microsoftonline.com/

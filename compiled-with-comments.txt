@@ -1,4 +1,4 @@
-# List compiled on 2026-10-12 23:53:40 UTC
+# List compiled on 2026-10-13 00:08:27 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -771,8 +771,7 @@ zoom.us
 ## tailscale
 ### Tailscale - 2026-10-12
 controlplane.tailscale.com
-derp10c.tailscale.com
-derp10d.tailscale.com
+derp*.tailscale.com
 
 # weather
 ## ventusky

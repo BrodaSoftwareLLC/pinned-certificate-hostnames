@@ -1,4 +1,4 @@
-# List compiled on 2026-10-13 00:08:27 UTC
+# List compiled on 2026-10-13 21:06:33 UTC
 # aviation
 ## american-airlines
 ### American Airlines - 2024-02-07
@@ -175,7 +175,6 @@ audio4-gm-fb.spotifycdn.com
 charts-images.scdn.co
 clienttoken.spotify.com
 daily-mix.scdn.co
-daily-mix.scdn.co
 dailymix-images.scdn.co
 dealer.spotify.com
 exp.wg.spotify.com
@@ -190,9 +189,7 @@ image-cdn-ak.spotifycdn.com
 image-cdn-fa.spotifycdn.com
 lexicon-assets.spotifycdn.com
 lineup-images.scdn.co
-lineup-images.scdn.co
 login5.spotify.com
-misc.scdn.co
 misc.scdn.co
 misc.spotifycdn.com
 mosaic.scdn.co
@@ -200,7 +197,6 @@ newjams-images.scdn.co
 open.spotifycdn.com
 pickasso.spotifycdn.com
 pl.scdn.co
-seed-mix-image.spotifycdn.com
 seed-mix-image.spotifycdn.com
 spclient.wg.spotify.com
 video-ak.cdn.spotify.com.splitter-eip.akadns.net
@@ -229,11 +225,10 @@ edge-mqtt.facebook.com
 cdn.fbsbx.com
 web.facebook.com
 *.xz.fbcdn.net
-*.*.fna.fbcdn.net
+*.fna.fbcdn.net
 scontent.xx.fbcdn.net
 *.xx.fbcdn.net
 *.xy.fbcdn.net
-*.fna.fbcdn.net
 graph.facebook.com
 rupload.facebook.com
 
@@ -330,7 +325,7 @@ sw-update.obdev.at
 ## sap-concur
 ### SAP Concur Mobile App - 2024-02-07
 us2.api.concursolutions.com
-Www-glz.api.concursolutions.com
+www-glz.api.concursolutions.com
 
 # software
 ## sentry
@@ -353,7 +348,7 @@ update.videolan.org
 # software
 ## visual-studio-code
 ### Visual Studio Code - 2024-02-07
-default.exp-tas.com # AB testing
+default.exp-tas.com
 az764295.vo.msecnd.net
 marketplace.visualstudio.com
 googlecloudtools.gallery.vsassets.io
@@ -655,7 +650,7 @@ enforcer.stg-gov-hawkeye.services-edge.paloaltonetworks.com
 # vendors
 ## palo-alto-networks
 ### idira
-#### Palo Alto Networks - Idira - 2026-09-22 
+#### Palo Alto Networks - Idira - 2026-09-22
 *.id.cyberark.cloud
 idaptive.app
 *.idaptive.app
@@ -751,9 +746,8 @@ trace.svc.ui.com
 # vendors
 ## zscaler
 ### Zscaler - 2024-04-05
-*.*.prod.zpath.net
+*.prod.zpath.net
 mobile.zscloud.net
-
 
 # video-conferencing
 ## zoom

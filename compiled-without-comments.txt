@@ -1,7 +1,5 @@
-# List compiled on 2026-10-13 00:08:27 UTC
+# List compiled on 2026-10-13 21:06:33 UTC
 *-prod.do.dsp.mp.microsoft.com
-*.*.fna.fbcdn.net
-*.*.prod.zpath.net
 *.accounts.firefox.com
 *.acrobat.com
 *.activeupdate.trendmicro.com
@@ -36,6 +34,7 @@
 *.newrelic.com
 *.privateinternetaccess.com
 *.prod.do.dsp.mp.microsoft.com
+*.prod.zpath.net
 *.push.prod.netflix.com
 *.relay.teams.microsoft.com
 *.signal.org
@@ -142,12 +141,11 @@ crowdstrike.com
 d3jyalop6jpmn2.cloudfront.net
 d9qcypg7o58bv.cloudfront.net
 daily-mix.scdn.co
-daily-mix.scdn.co
 dailymix-images.scdn.co
 data-feed.flightradar24.com
 data.ventusky.com
 dealer.spotify.com
-default.exp-tas.com # AB testing
+default.exp-tas.com
 derp*.tailscale.com
 desktop.docker.com
 devcom.up.netgear.com
@@ -177,7 +175,6 @@ f-log.grammarly.io
 falcon.crowdstrike.com
 fe2.update.microosft.com
 fe3.delivery.mp.microsoft.com
-fe3cr.delivery.mp.microsoft.com
 fe3cr.delivery.mp.microsoft.com
 fpdownload.adobe.com
 fpinit.itunes.apple.com
@@ -249,7 +246,6 @@ lic.lc.prod.eu.cs.paloaltonetworks.com
 lic.lc.prod.us.cs.paloaltonetworks.com
 license-portal-eb.studio3t.com
 lineup-images.scdn.co
-lineup-images.scdn.co
 livetileedge.mdsx.mp.microsoft.com
 locator.cgnx.net
 login.live.com
@@ -268,7 +264,6 @@ media2.giphy.com
 media3.giphy.com
 media4.giphy.com
 mesu.apple.com
-misc.scdn.co
 misc.scdn.co
 misc.spotifycdn.com
 mobile.southwest.com
@@ -303,7 +298,6 @@ scontent.cdninstagram.com
 scontent.xx.fbcdn.net
 sdds3.sophosupd.com
 sdwan-stats-hood-us.cgnx.net
-seed-mix-image.spotifycdn.com
 seed-mix-image.spotifycdn.com
 sentry.io
 services.gradle.org
@@ -368,7 +362,7 @@ web.facebook.com
 win-extension.femetrics.grammarly.io
 winatp-gw-cus.microsoft.com
 wrapped-images.spotifycdn.com
-Www-glz.api.concursolutions.com
+www-glz.api.concursolutions.com
 www.googleapis.com
 www.oculus.com
 xp.apple.com

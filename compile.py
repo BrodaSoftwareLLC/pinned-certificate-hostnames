@@ -1,8 +1,18 @@
 import argparse
 import os
+import re
 import hashlib
 from datetime import datetime
 import pytz
+
+COMPILED_WITH_COMMENTS = 'compiled-with-comments.txt'
+COMPILED_WITHOUT_COMMENTS = 'compiled-without-comments.txt'
+PANW_COMPILED_WITHOUT_COMMENTS = 'panw-compiled-without-comments.txt'
+HASH_FILE = 'file-validation.hash'
+
+VALID_HOSTNAME = re.compile(r'^[a-z0-9*-]+(\.[a-z0-9*-]+)+$')
+LEADING_WILDCARDS = re.compile(r'^(\*\.)+')
+
 
 def read_file_content(file_path: str) -> str:
     """Reads and returns the content of a file."""
@@ -18,22 +28,94 @@ def calculate_file_hash(file_path: str) -> str:
     return sha256_hash.hexdigest()
 
 
-def compile_directory_contents(dir_path: str, depth: int = 0, accumulated_path: str = "") -> list:
+def parse_hostnames(file_path: str) -> list:
     """
-    Recursively walks through directories, compiling contents of 'header' and 'hostnames' files,
-    and includes the directory names in the output with appropriate depth indication.
-    
+    Parses a 'hostnames' file into a list of normalized entries.
+
+    Inline comments ('host # note') and full-line comments are stripped, entries are
+    lowercased, and blank lines are skipped.
+    """
+    hostnames = []
+    for line in read_file_content(file_path).splitlines():
+        hostname = line.split('#', 1)[0].strip().lower()
+        if hostname:
+            hostnames.append(hostname)
+    return hostnames
+
+def validate_hostname(hostname: str) -> str:
+    """Returns a warning message if the hostname is malformed, otherwise an empty string."""
+    if not VALID_HOSTNAME.match(hostname):
+        return f"invalid characters or structure: {hostname!r}"
+    return ""
+
+
+def collapse_wildcards(hostname: str) -> str:
+    """
+    Collapses leading multi-level wildcards to a single one, e.g. '*.*.example.com' -> '*.example.com'.
+
+    Most vendors treat a leading '*.' as matching any number of subdomain levels, so the
+    collapsed form covers the same hostnames.
+    """
+    return LEADING_WILDCARDS.sub('*.', hostname)
+
+def panw_format(hostname: str) -> str:
+    """
+    Formats a hostname for a PAN-OS URL category. The hostname is kept as-is because PAN-OS
+    treats each '*' as exactly one label, and a trailing '/' anchors the match to the hostname.
+    """
+    return f"{hostname}/"
+
+
+def is_leading_wildcard(hostname: str) -> bool:
+    """True if the only wildcards in the hostname are whole leading labels, e.g. '*.*.example.com'."""
+    return hostname.startswith('*.') and '*' not in LEADING_WILDCARDS.sub('', hostname)
+
+def covered_by_suffix_wildcard(hostname: str, wildcard: str) -> bool:
+    """Generic vendor semantics: '*.example.com' covers any hostname ending in '.example.com'."""
+    return hostname != wildcard and hostname.endswith(wildcard[1:])
+
+def covered_by_label_wildcard(hostname: str, wildcard: str) -> bool:
+    """PAN-OS semantics: each '*' label in the wildcard matches exactly one label in the hostname."""
+    host_labels = hostname.split('.')
+    wildcard_labels = wildcard.split('.')
+    if hostname == wildcard or len(host_labels) != len(wildcard_labels):
+        return False
+    return all(w == '*' or w == h for h, w in zip(host_labels, wildcard_labels))
+
+def find_covered_hostnames(hostnames: list, covered_by) -> list:
+    """
+    Returns (hostname, [wildcards]) pairs for hostnames already matched by another wildcard entry.
+    Only wildcards made of whole leading labels are considered; mid-label wildcards are left alone.
+    """
+    wildcards = [h for h in hostnames if is_leading_wildcard(h)]
+    covered = []
+    for hostname in hostnames:
+        matches = [w for w in wildcards if covered_by(hostname, w)]
+        if matches:
+            covered.append((hostname, matches))
+    return covered
+
+
+def compile_directory_contents(dir_path: str, depth: int = 0, accumulated_path: str = "", root: str = None) -> list:
+    """
+    Recursively walks through directories, collecting the 'header' and 'hostnames' files of
+    each end directory along with the directory names formatted with depth indication.
+
     Args:
     - dir_path (str): The path to the directory to start the walk from.
     - depth (int): The current depth of the recursion.
     - accumulated_path (str): Accumulated path names formatted with depth.
-    
+    - root (str): The top-level directory, used to name each section's source.
+
     Returns:
-    - list: A list of compiled contents, including directory names and file contents.
+    - list: A list of sections, each a dict with 'title' (directory structure and header),
+      'hostnames' (parsed entries) and 'source' (path relative to the root).
     """
-    compiled_contents = []
+    sections = []
     if not os.path.exists(dir_path):
         raise FileNotFoundError(f"Directory not found: {dir_path}")
+    if root is None:
+        root = dir_path
 
     # Only append directory names if not at the root
     if depth > 0:
@@ -43,61 +125,108 @@ def compile_directory_contents(dir_path: str, depth: int = 0, accumulated_path: 
 
     entries = sorted(os.listdir(dir_path), key=lambda x: x.lower())
     has_subdirectories = any(os.path.isdir(os.path.join(dir_path, entry)) for entry in entries)
-    
+
     for entry in entries:
         full_path = os.path.join(dir_path, entry)
         if os.path.isdir(full_path):
-            compiled_contents += compile_directory_contents(full_path, depth + 1, accumulated_path)
-    
-    # If at an "end directory", compile header and hostnames
+            sections += compile_directory_contents(full_path, depth + 1, accumulated_path, root)
+
+    # If at an "end directory", collect header and hostnames
     if not has_subdirectories:
         header_path = os.path.join(dir_path, 'header')
         hostnames_path = os.path.join(dir_path, 'hostnames')
         if os.path.isfile(header_path) and os.path.isfile(hostnames_path):
-            header_content = read_file_content(header_path)
-            header_content = f"{'#' * (depth + 1)} {header_content}"
-            hostnames_content = read_file_content(hostnames_path)
-            # Add directory structure and file contents
-            compiled_contents.append(f"{accumulated_path}{header_content}{hostnames_content}\n")
-    
-    return compiled_contents if depth == 0 else compiled_contents
+            header_content = read_file_content(header_path).strip()
+            sections.append({
+                'title': f"{accumulated_path}{'#' * (depth + 1)} {header_content}\n",
+                'hostnames': parse_hostnames(hostnames_path),
+                'source': os.path.relpath(dir_path, root),
+            })
+
+    return sections
+
+
+def deduplicate(entries: list) -> dict:
+    """
+    Deduplicates (hostname, source) pairs, keeping the first occurrence.
+
+    Returns:
+    - dict: Each unique hostname mapped to the list of sources it appeared in.
+    """
+    unique = {}
+    for hostname, source in entries:
+        unique.setdefault(hostname, []).append(source)
+    return unique
+
+def report_duplicates(label: str, unique: dict):
+    """Prints the hostnames that appeared more than once in an output file."""
+    duplicates = {h: s for h, s in unique.items() if len(s) > 1}
+    if duplicates:
+        print(f"Duplicates removed from {label}: {len(duplicates)}")
+        for hostname, sources in sorted(duplicates.items()):
+            print(f"  {hostname}: {', '.join(sources)}")
+
+def report_covered(label: str, covered: list, unique: dict):
+    """Prints the hostnames already covered by a wildcard. Report only; nothing is removed."""
+    if covered:
+        print(f"Covered by a wildcard in {label} (not removed): {len(covered)}")
+        for hostname, wildcards in covered:
+            print(f"  {hostname} ({', '.join(unique[hostname])}) <- {', '.join(wildcards)}")
+
+
+def write_flat_list(file_name: str, timestamp: str, hostnames: list):
+    """Writes a sorted list of entries with only the timestamp comment."""
+    with open(file_name, 'w') as file:
+        file.write(timestamp)
+        for line in hostnames:
+            file.write(f"{line}\n")
 
 def write_compiled_list(dir_path: str):
     try:
-        compiled_list = compile_directory_contents(dir_path)
-        if not compiled_list:
+        sections = compile_directory_contents(dir_path)
+        if not sections:
             print("No valid header and hostnames files found in the directory tree.")
             return
-        
+
+        warnings = [(section['source'], message) for section in sections
+                    for message in map(validate_hostname, section['hostnames']) if message]
+        for source, message in warnings:
+            print(f"WARNING {source}: {message}")
+
         timestamp = datetime.now(pytz.timezone("UTC")).strftime("# List compiled on %Y-%m-%d %H:%M:%S %Z\n")
-        
-        with open('compiled-with-comments.txt', 'w') as file:
+
+        # Write the commented list. Wildcards are collapsed and duplicates removed within each vendor
+        # section; a hostname shared by several vendors is still listed under each of them.
+        with open(COMPILED_WITH_COMMENTS, 'w') as file:
             file.write(timestamp)
-            file.writelines(compiled_list)
+            for section in sections:
+                hostnames = deduplicate((collapse_wildcards(h), section['source']) for h in section['hostnames'])
+                file.write(section['title'])
+                file.writelines(f"{hostname}\n" for hostname in hostnames)
+                file.write("\n")
 
-        # Prepare list for compiled-excluding-comments.txt
-        # Flatten the list, remove lines starting with '#', and sort
-        flat_list = "\n".join(compiled_list).split("\n")
-        filtered_list = [line for line in flat_list if not line.strip().startswith('#') and line.strip() != '']
-        sorted_filtered_list = sorted(filtered_list, key=lambda x: x.lower())
-        print(f"Number of hostnames found: {len(sorted_filtered_list)}")
+        entries = [(hostname, section['source']) for section in sections for hostname in section['hostnames']]
+        print(f"Number of hostnames found: {len(entries)}")
 
-        # Write to compiled-excluding-comments.txt excluding comments and sorted
-        with open('compiled-without-comments.txt', 'w') as file:
-            file.write(timestamp)
-            for line in sorted_filtered_list:
-                file.write(f"{line}\n")
+        # Write the generic list, with multi-level wildcards collapsed to a single one.
+        generic = deduplicate((collapse_wildcards(h), source) for h, source in entries)
+        generic_sorted = sorted(generic, key=lambda x: x.lower())
+        write_flat_list(COMPILED_WITHOUT_COMMENTS, timestamp, generic_sorted)
+        print(f"Number of hostnames in {COMPILED_WITHOUT_COMMENTS}: {len(generic_sorted)}")
+        report_duplicates(COMPILED_WITHOUT_COMMENTS, generic)
+        report_covered(COMPILED_WITHOUT_COMMENTS, find_covered_hostnames(generic_sorted, covered_by_suffix_wildcard), generic)
 
-        # Write a Palo Alto Networks specific exclude list.
-        with open('panw-compiled-without-comments.txt', 'w') as panw_file:
-            panw_file.write(timestamp)
-            for line in sorted_filtered_list:
-                panw_file.write(f"{line}/\n")
+        # Write a Palo Alto Networks specific list, keeping multi-level wildcards as-is.
+        panw = deduplicate(entries)
+        panw_sorted = sorted(panw, key=lambda x: x.lower())
+        write_flat_list(PANW_COMPILED_WITHOUT_COMMENTS, timestamp, [panw_format(h) for h in panw_sorted])
+        print(f"Number of hostnames in {PANW_COMPILED_WITHOUT_COMMENTS}: {len(panw_sorted)}")
+        report_duplicates(PANW_COMPILED_WITHOUT_COMMENTS, panw)
+        report_covered(PANW_COMPILED_WITHOUT_COMMENTS, find_covered_hostnames(panw_sorted, covered_by_label_wildcard), panw)
 
         # Calculate hashes and write to file-validation.hash
-        hash_file = 'file-validation.hash'
-        with open(hash_file, 'w') as hashfile:
-            for filename in ['compiled-with-comments.txt', 'compiled-without-comments.txt', 'panw-compiled-without-comments.txt']:
+        with open(HASH_FILE, 'w') as hashfile:
+            for filename in [COMPILED_WITH_COMMENTS, COMPILED_WITHOUT_COMMENTS, PANW_COMPILED_WITHOUT_COMMENTS]:
                 hash_val = calculate_file_hash(filename)
                 hashfile.write(f"{hash_val}  {filename}\n")
 
@@ -107,11 +236,10 @@ def write_compiled_list(dir_path: str):
 def main():
     parser = argparse.ArgumentParser(description='Compile directory contents with structure representation.')
     parser.add_argument('directory', type=str, help='The path to the directory to start the compilation from.')
-    
+
     args = parser.parse_args()
-    
+
     write_compiled_list(args.directory)
 
 if __name__ == '__main__':
     main()
-

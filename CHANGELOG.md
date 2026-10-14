@@ -1,3 +1,9 @@
+# 2026-10-14
+## Enhancements :rocket:
+* Added `ftgt-compiled-without-comments.txt` for Fortinet FortiGate devices (FortiGuard Category External Feed). Wildcards are moved to the beginning of the hostname (e.g. `gsp*-ssl.ls.apple.com` becomes `*-ssl.ls.apple.com`), and the file is added to `file-validation.hash`.
+* `compile.py` reports the entries broadened for FortiGate and skips any that would match a whole top-level domain.
+
+
 # 2026-10-13
 ## Enhancements :rocket:
 * Multi-level wildcards (e.g. `*.*.fna.fbcdn.net`) are kept as-is in `panw-compiled-without-comments.txt` and collapsed to a single wildcard (e.g. `*.fna.fbcdn.net`) in `compiled-with-comments.txt` and `compiled-without-comments.txt`.

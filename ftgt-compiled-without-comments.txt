@@ -1,26 +1,18 @@
-# List compiled on 2026-10-14 16:12:01 UTC
+# List compiled on 2026-10-14 18:03:21 UTC
 *-prod.do.dsp.mp.microsoft.com
 *-ssl.ls.apple.com
 *.accounts.firefox.com
 *.acrobat.com
-*.activeupdate.trendmicro.com
 *.addons.mozilla.net
 *.addons.mozilla.org
-*.aot.trendmicro.com
-*.api.snapchat.com
 *.bam.nr-data.net
 *.cdn.mozilla.net
 *.cdn.mozilla.org
 *.cdninstagram.com
-*.chat.snapchat.com
-*.cloud.zoom.us
 *.echocdn.com
 *.echosign.com
-*.fbs25.trendmicro.com
 *.fna.fbcdn.net
-*.gfrbridge.trendmicro.com
 *.i.tplinkcloud.com
-*.icrc.trendmicro.com
 *.id.cyberark.cloud
 *.idaptive.app
 *.iot.services-edge.paloaltonetworks.com
@@ -30,9 +22,7 @@
 *.lc.prod.us.cs.paloaltonetworks.com
 *.mail.me.com
 *.manage.trellix.com
-*.manage.trendmicro.com
 *.media.mozilla.com
-*.mgcp.trendmicro.com
 *.newrelic.com
 *.privateinternetaccess.com
 *.prod.do.dsp.mp.microsoft.com
@@ -45,14 +35,10 @@
 *.trendmicro.com
 *.tresorit.com
 *.trezor.io
-*.trx.trendmicro.com
 *.uber.com
-*.url.trendmicro.com
 *.whatsapp.net
 *.ws.prod.cloud.netflix.com
 *.x.cp.wd.microsoft.com
-*.xbc.trendmicro.com
-*.xdr.trendmicro.com
 *.xx.fbcdn.net
 *.xy.fbcdn.net
 *.xz.fbcdn.net
@@ -88,8 +74,6 @@ api.blizzard.com
 api.delta.com
 api.github.com
 api.keybase.io
-api.lc.prod.eu.cs.paloaltonetworks.com
-api.lc.prod.us.cs.paloaltonetworks.com
 api.prod.headspace.com
 api.protonmail.ch
 api.protonvpn.ch
@@ -102,7 +86,6 @@ app-site-association-parent.networking.apple
 app-site-association.cdn-apple.com
 app-site-association.networking.apple
 appldnld.apple.com
-apple.mdm.jumpcloud.com
 apresolve.spotify.com
 attester.gateway.icloud.com
 audio-ak.spotifycdn.com
@@ -125,8 +108,6 @@ cdn-1.strava.com
 cdn.discordapp.com
 cdn.fbsbx.com
 cdn.flyaa.aa.com
-cdn.signal.org
-cdn2.signal.org
 central.github.com
 certauth.login.microsoftonline.com
 cf-st.sc-cdn.net
@@ -139,7 +120,6 @@ cognito-identity.us-east-1.amazonaws.com
 configuration.apple.com
 content-ui.battle.net
 controller.hood.cgnx.net
-controlplane.tailscale.com
 crowdstrike.com
 d3jyalop6jpmn2.cloudfront.net
 d9qcypg7o58bv.cloudfront.net
@@ -216,8 +196,6 @@ idaptive.app
 ig.apple.com
 image-cdn-ak.spotifycdn.com
 image-cdn-fa.spotifycdn.com
-in.lc.prod.eu.cs.paloaltonetworks.com
-in.lc.prod.us.cs.paloaltonetworks.com
 init.ess.apple.com
 insiderservice.microsoft.com
 intunemaape1.eus.attest.azure.net
@@ -243,8 +221,6 @@ latency.discord.media
 lc.trellix.com
 lexicon-assets.spotifycdn.com
 lfodown01-b.cloudsink.net
-lic.lc.prod.eu.cs.paloaltonetworks.com
-lic.lc.prod.us.cs.paloaltonetworks.com
 license-portal-eb.studio3t.com
 lineup-images.scdn.co
 livetileedge.mdsx.mp.microsoft.com
@@ -294,8 +270,6 @@ protonvpn.com
 r.edtd.eset.com
 reports.proton.me
 rupload.facebook.com
-scontent.cdninstagram.com
-scontent.xx.fbcdn.net
 sdds3.sophosupd.com
 sdwan-stats-hood-us.cgnx.net
 seed-mix-image.spotifycdn.com

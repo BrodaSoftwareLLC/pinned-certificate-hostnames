@@ -216,9 +216,9 @@ class TestFortigateList(unittest.TestCase):
     def tearDownClass(cls):
         cls.tmp.cleanup()
 
-    def test_wildcards_rewritten_then_deduplicated(self):
+    def test_wildcards_rewritten_then_deduplicated_then_covered_removed(self):
         self.assertEqual(self.ftgt, ['*-prod.do.dsp.mp.microsoft.com', '*.prod.do.dsp.mp.microsoft.com',
-                                     '*.tailscale.com', 'controlplane.tailscale.com'])
+                                     '*.tailscale.com'])
 
     def test_report_lists_broadened_entries(self):
         self.assertIn('derp*.tailscale.com -> *.tailscale.com (vpn/tailscale)', self.report)
@@ -227,8 +227,25 @@ class TestFortigateList(unittest.TestCase):
     def test_too_broad_entry_is_skipped_with_warning(self):
         self.assertIn("WARNING example/tld: 'a*.com' would become '*.com'", self.report)
 
-    def test_report_lists_covered_entries(self):
+    def test_report_lists_removed_covered_entries(self):
+        self.assertIn('Covered by a wildcard in ftgt-compiled-without-comments.txt (removed): 1', self.report)
         self.assertIn('controlplane.tailscale.com (vpn/tailscale) <- *.tailscale.com', self.report)
+
+    def test_covered_wildcards_and_hostnames_removed_outermost_kept(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            data = os.path.join(tmp, 'data')
+            write_file(os.path.join(data, 'video-conferencing/zoom/header'), "Zoom - 2024-02-07\n")
+            write_file(os.path.join(data, 'video-conferencing/zoom/hostnames'),
+                       "*.cloud.zoom.us\n*.zoom.us\nwww.cloud.zoom.us\n")
+            write_file(os.path.join(data, 'vendors/trendmicro/header'), "Trend Micro - 2024-02-07\n")
+            write_file(os.path.join(data, 'vendors/trendmicro/hostnames'),
+                       "www.trendmicro.com\n*.trendmicro.com\ntrendmicro.com\n")
+            compile_into(data, tmp)
+            self.assertEqual(read_entries(os.path.join(tmp, compiler.FTGT_COMPILED_WITHOUT_COMMENTS)),
+                             ['*.trendmicro.com', '*.zoom.us', 'trendmicro.com'])
+            self.assertEqual(read_entries(os.path.join(tmp, compiler.COMPILED_WITHOUT_COMMENTS)),
+                             ['*.cloud.zoom.us', '*.trendmicro.com', '*.zoom.us', 'trendmicro.com',
+                              'www.cloud.zoom.us', 'www.trendmicro.com'])
 
 
 class TestRepositoryData(unittest.TestCase):
@@ -265,6 +282,10 @@ class TestRepositoryData(unittest.TestCase):
 
     def test_panw_list_is_anchored(self):
         self.assertTrue(all(entry.endswith('/') and not entry.endswith('//') for entry in self.panw))
+
+    def test_ftgt_list_has_no_covered_entries(self):
+        self.assertFalse(compiler.find_covered_hostnames(self.ftgt, compiler.covered_by_ftgt_wildcard,
+                                                         lambda h: h.startswith('*')))
 
     def test_ftgt_list_only_has_wildcards_at_the_beginning(self):
         self.assertFalse([entry for entry in self.ftgt if '*' in entry[1:]])

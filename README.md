@@ -8,7 +8,7 @@ Hosted on Cloudflare:
 * The [compiled-with-comments.txt](https://lists.broda.io/pinned-certificates/compiled-with-comments.txt) file contains the headers and hostnames to help navigate the list. Multi-level wildcards are collapsed (see [Wildcards](#wildcards)).
 * The [compiled-without-comments.txt](https://lists.broda.io/pinned-certificates/compiled-without-comments.txt) file contains only the hostnames, deduplicated, with multi-level wildcards collapsed (see [Wildcards](#wildcards)).
 * The [panw-compiled-without-comments.txt](https://lists.broda.io/pinned-certificates/panw-compiled-without-comments.txt) file contains only the hostnames, deduplicated, and is specific to Palo Alto Networks devices (PAN-OS URL categories). Multi-level wildcards are kept as-is and every entry ends with `/`.
-* The [ftgt-compiled-without-comments.txt](https://lists.broda.io/pinned-certificates/ftgt-compiled-without-comments.txt) file contains only the hostnames, deduplicated, and is specific to Fortinet FortiGate devices (FortiGuard Category External Feed). Every wildcard is moved to the beginning of the hostname.
+* The [ftgt-compiled-without-comments.txt](https://lists.broda.io/pinned-certificates/ftgt-compiled-without-comments.txt) file contains only the hostnames, deduplicated, and is specific to Fortinet FortiGate devices (FortiGuard Category External Feed). Every wildcard is moved to the beginning of the hostname, and entries already covered by a wildcard are removed.
 * The [file-validation.hash](https://lists.broda.io/pinned-certificates/file-validation.hash) file contains a sha256 hash of the 4 text files above.
 
 # Disclaimer
@@ -48,7 +48,7 @@ The same hostname can be used by more than one application (e.g. `fe3cr.delivery
 * `compiled-with-comments.txt` lists a shared hostname under each application that uses it, but only once within an application.
 * `compiled-without-comments.txt`, `panw-compiled-without-comments.txt` and `ftgt-compiled-without-comments.txt` list every entry once. Deduplication happens after wildcards are collapsed, so `*.*.example.com` and `*.example.com` become a single `*.example.com` in the generic and FortiGate files while both are kept in the Palo Alto Networks file.
 
-`compile.py` prints the duplicates it removed and their sources, any malformed entries, the entries broadened for FortiGate, and entries already covered by a wildcard in each file (e.g. `cdn.signal.org` under `*.signal.org`). Covered entries are reported only and are never removed.
+`compile.py` prints the duplicates it removed and their sources, any malformed entries, the entries broadened for FortiGate, and entries already covered by a wildcard in each file (e.g. `cdn.signal.org` under `*.signal.org`). Covered entries are reported only and kept in every file except `ftgt-compiled-without-comments.txt`, where they are removed (e.g. `*.cloud.zoom.us` under `*.zoom.us`). The `hostnames` files are never changed.
 
 # Testing
 Run the tests before submitting changes to `compile.py` or the `data/` directory:

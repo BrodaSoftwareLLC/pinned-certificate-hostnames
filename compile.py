@@ -186,10 +186,10 @@ def report_duplicates(label: str, unique: dict):
         for hostname, sources in sorted(duplicates.items()):
             print(f"  {hostname}: {', '.join(sources)}")
 
-def report_covered(label: str, covered: list, unique: dict):
-    """Prints the hostnames already covered by a wildcard. Report only; nothing is removed."""
+def report_covered(label: str, covered: list, unique: dict, removed: bool = False):
+    """Prints the hostnames already covered by a wildcard, and whether they were removed from the output."""
     if covered:
-        print(f"Covered by a wildcard in {label} (not removed): {len(covered)}")
+        print(f"Covered by a wildcard in {label} ({'removed' if removed else 'not removed'}): {len(covered)}")
         for hostname, wildcards in covered:
             print(f"  {hostname} ({', '.join(unique[hostname])}) <- {', '.join(wildcards)}")
 
@@ -244,13 +244,18 @@ def write_compiled_list(dir_path: str):
         report_duplicates(PANW_COMPILED_WITHOUT_COMMENTS, panw)
         report_covered(PANW_COMPILED_WITHOUT_COMMENTS, find_covered_hostnames(panw_sorted, covered_by_label_wildcard), panw)
 
-        # Write a FortiGate specific list, with every wildcard moved to the beginning of the FQDN.
+        # Write a FortiGate specific list, with every wildcard moved to the beginning of the FQDN and the
+        # entries already covered by a wildcard removed. The source data and the other lists are unchanged.
         broadened = sorted({(h, ftgt_format(h), source) for h, source in entries if ftgt_format(h) != h})
         too_broad = [(h, f, source) for h, f, source in broadened if is_too_broad(f)]
         for hostname, formatted, source in too_broad:
             print(f"WARNING {source}: {hostname!r} would become {formatted!r}, skipped in {FTGT_COMPILED_WITHOUT_COMMENTS}")
         ftgt = deduplicate((ftgt_format(h), source) for h, source in entries if not is_too_broad(ftgt_format(h)))
         ftgt_sorted = sorted(ftgt, key=lambda x: x.lower())
+        ftgt_covered = find_covered_hostnames(ftgt_sorted, covered_by_ftgt_wildcard, lambda h: h.startswith('*'))
+        # Covering is a strict suffix relation, so the outermost wildcard of every covered entry is kept.
+        ftgt_covered_names = {hostname for hostname, _ in ftgt_covered}
+        ftgt_sorted = [h for h in ftgt_sorted if h not in ftgt_covered_names]
         write_flat_list(FTGT_COMPILED_WITHOUT_COMMENTS, timestamp, ftgt_sorted)
         print(f"Number of hostnames in {FTGT_COMPILED_WITHOUT_COMMENTS}: {len(ftgt_sorted)}")
         report_duplicates(FTGT_COMPILED_WITHOUT_COMMENTS, ftgt)
@@ -260,8 +265,7 @@ def write_compiled_list(dir_path: str):
             print(f"Broadened in {FTGT_COMPILED_WITHOUT_COMMENTS}: {len(rewritten)}")
             for hostname, formatted, source in rewritten:
                 print(f"  {hostname} -> {formatted} ({source})")
-        report_covered(FTGT_COMPILED_WITHOUT_COMMENTS,
-                       find_covered_hostnames(ftgt_sorted, covered_by_ftgt_wildcard, lambda h: h.startswith('*')), ftgt)
+        report_covered(FTGT_COMPILED_WITHOUT_COMMENTS, ftgt_covered, ftgt, removed=True)
 
         # Calculate hashes and write to file-validation.hash
         with open(HASH_FILE, 'w') as hashfile:

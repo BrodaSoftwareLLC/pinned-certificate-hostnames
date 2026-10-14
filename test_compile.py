@@ -70,6 +70,26 @@ class TestWildcardFormatting(unittest.TestCase):
         self.assertEqual(compiler.panw_format('*.*.fna.fbcdn.net'), '*.*.fna.fbcdn.net/')
         self.assertEqual(compiler.panw_format('example.com'), 'example.com/')
 
+    def test_ftgt_format_moves_wildcard_to_the_beginning(self):
+        cases = {
+            'gsp*-ssl.ls.apple.com': '*-ssl.ls.apple.com',
+            'scontent-*.cdninstagram.com': '*.cdninstagram.com',
+            'derp*.tailscale.com': '*.tailscale.com',
+            '*.*.fna.fbcdn.net': '*.fna.fbcdn.net',
+            '*-prod.do.dsp.mp.microsoft.com': '*-prod.do.dsp.mp.microsoft.com',
+            '*.example.com': '*.example.com',
+            'example.com': 'example.com',
+        }
+        for hostname, expected in cases.items():
+            self.assertEqual(compiler.ftgt_format(hostname), expected, hostname)
+
+    def test_is_too_broad(self):
+        self.assertTrue(compiler.is_too_broad('*.com'))
+        self.assertTrue(compiler.is_too_broad('*com'))
+        self.assertFalse(compiler.is_too_broad('*.example.com'))
+        self.assertFalse(compiler.is_too_broad('*-ssl.ls.apple.com'))
+        self.assertFalse(compiler.is_too_broad('example.com'))
+
     def test_is_leading_wildcard(self):
         self.assertTrue(compiler.is_leading_wildcard('*.example.com'))
         self.assertTrue(compiler.is_leading_wildcard('*.*.example.com'))
@@ -99,6 +119,12 @@ class TestCoverage(unittest.TestCase):
         hostnames = ['derp*.tailscale.com', 'derp1.tailscale.com', '*.signal.org', 'cdn.signal.org']
         covered = compiler.find_covered_hostnames(hostnames, compiler.covered_by_suffix_wildcard)
         self.assertEqual(covered, [('cdn.signal.org', ['*.signal.org'])])
+
+    def test_ftgt_semantics_match_any_prefix(self):
+        self.assertTrue(compiler.covered_by_ftgt_wildcard('gsp1-ssl.ls.apple.com', '*-ssl.ls.apple.com'))
+        self.assertTrue(compiler.covered_by_ftgt_wildcard('controlplane.tailscale.com', '*.tailscale.com'))
+        self.assertFalse(compiler.covered_by_ftgt_wildcard('*.tailscale.com', '*.tailscale.com'))
+        self.assertFalse(compiler.covered_by_ftgt_wildcard('tailscale.com', '*.tailscale.com'))
 
 
 class TestDeduplicate(unittest.TestCase):
@@ -158,13 +184,51 @@ class TestWriteCompiledList(unittest.TestCase):
         with open(os.path.join(self.out, compiler.HASH_FILE)) as file:
             hashes = dict(reversed(line.split('  ', 1)) for line in file.read().splitlines())
         self.assertEqual(list(hashes), [compiler.COMPILED_WITH_COMMENTS, compiler.COMPILED_WITHOUT_COMMENTS,
-                                        compiler.PANW_COMPILED_WITHOUT_COMMENTS])
+                                        compiler.PANW_COMPILED_WITHOUT_COMMENTS,
+                                        compiler.FTGT_COMPILED_WITHOUT_COMMENTS])
         for file_name, hash_val in hashes.items():
             self.assertEqual(compiler.calculate_file_hash(os.path.join(self.out, file_name)), hash_val)
 
     def test_report_names_duplicate_sources(self):
         self.assertIn('fe3cr.delivery.mp.microsoft.com: vendors/microsoft/windows-store, vendors/microsoft/wsl',
                       self.report)
+
+
+class TestFortigateList(unittest.TestCase):
+    """End-to-end run over a small data tree covering the FortiGate wildcard rewrite."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.tmp = tempfile.TemporaryDirectory()
+        data = os.path.join(cls.tmp.name, 'data')
+        write_file(os.path.join(data, 'vpn/tailscale/header'), "Tailscale - 2024-02-07\n")
+        write_file(os.path.join(data, 'vpn/tailscale/hostnames'),
+                   "controlplane.tailscale.com\nderp*.tailscale.com\n*.tailscale.com\n")
+        write_file(os.path.join(data, 'vendors/microsoft/windows-store/header'), "Windows Store - 2024-02-07\n")
+        write_file(os.path.join(data, 'vendors/microsoft/windows-store/hostnames'),
+                   "*-prod.do.dsp.mp.microsoft.com\n*.*.prod.do.dsp.mp.microsoft.com\n")
+        write_file(os.path.join(data, 'example/tld/header'), "TLD - 2024-02-07\n")
+        write_file(os.path.join(data, 'example/tld/hostnames'), "a*.com\n")
+        cls.report = compile_into(data, cls.tmp.name)
+        cls.ftgt = read_entries(os.path.join(cls.tmp.name, compiler.FTGT_COMPILED_WITHOUT_COMMENTS))
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def test_wildcards_rewritten_then_deduplicated(self):
+        self.assertEqual(self.ftgt, ['*-prod.do.dsp.mp.microsoft.com', '*.prod.do.dsp.mp.microsoft.com',
+                                     '*.tailscale.com', 'controlplane.tailscale.com'])
+
+    def test_report_lists_broadened_entries(self):
+        self.assertIn('derp*.tailscale.com -> *.tailscale.com (vpn/tailscale)', self.report)
+        self.assertNotIn('*.*.prod.do.dsp.mp.microsoft.com ->', self.report)
+
+    def test_too_broad_entry_is_skipped_with_warning(self):
+        self.assertIn("WARNING example/tld: 'a*.com' would become '*.com'", self.report)
+
+    def test_report_lists_covered_entries(self):
+        self.assertIn('controlplane.tailscale.com (vpn/tailscale) <- *.tailscale.com', self.report)
 
 
 class TestRepositoryData(unittest.TestCase):
@@ -176,6 +240,7 @@ class TestRepositoryData(unittest.TestCase):
         cls.report = compile_into(DATA_DIR, cls.tmp.name)
         cls.generic = read_entries(os.path.join(cls.tmp.name, compiler.COMPILED_WITHOUT_COMMENTS))
         cls.panw = read_entries(os.path.join(cls.tmp.name, compiler.PANW_COMPILED_WITHOUT_COMMENTS))
+        cls.ftgt = read_entries(os.path.join(cls.tmp.name, compiler.FTGT_COMPILED_WITHOUT_COMMENTS))
 
     @classmethod
     def tearDownClass(cls):
@@ -187,9 +252,10 @@ class TestRepositoryData(unittest.TestCase):
     def test_no_duplicates(self):
         self.assertEqual(len(self.generic), len(set(self.generic)))
         self.assertEqual(len(self.panw), len(set(self.panw)))
+        self.assertEqual(len(self.ftgt), len(set(self.ftgt)))
 
     def test_entries_are_clean(self):
-        for entry in self.generic + self.panw:
+        for entry in self.generic + self.panw + self.ftgt:
             self.assertNotIn('#', entry)
             self.assertNotIn(' ', entry)
             self.assertEqual(entry, entry.lower())
@@ -199,6 +265,10 @@ class TestRepositoryData(unittest.TestCase):
 
     def test_panw_list_is_anchored(self):
         self.assertTrue(all(entry.endswith('/') and not entry.endswith('//') for entry in self.panw))
+
+    def test_ftgt_list_only_has_wildcards_at_the_beginning(self):
+        self.assertFalse([entry for entry in self.ftgt if '*' in entry[1:]])
+        self.assertFalse([entry for entry in self.ftgt if compiler.is_too_broad(entry)])
 
 
 if __name__ == '__main__':

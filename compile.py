@@ -8,6 +8,7 @@ import pytz
 COMPILED_WITH_COMMENTS = 'compiled-with-comments.txt'
 COMPILED_WITHOUT_COMMENTS = 'compiled-without-comments.txt'
 PANW_COMPILED_WITHOUT_COMMENTS = 'panw-compiled-without-comments.txt'
+FTGT_COMPILED_WITHOUT_COMMENTS = 'ftgt-compiled-without-comments.txt'
 HASH_FILE = 'file-validation.hash'
 
 VALID_HOSTNAME = re.compile(r'^[a-z0-9*-]+(\.[a-z0-9*-]+)+$')
@@ -65,6 +66,21 @@ def panw_format(hostname: str) -> str:
     """
     return f"{hostname}/"
 
+def ftgt_format(hostname: str) -> str:
+    """
+    Formats a hostname for a FortiGate external category feed, which only accepts a wildcard at
+    the beginning of the FQDN. Everything up to and including the last '*' is replaced by a single
+    leading '*', e.g. 'gsp*-ssl.ls.apple.com' -> '*-ssl.ls.apple.com' and
+    'derp*.tailscale.com' -> '*.tailscale.com'. The result can match more hostnames than the source.
+    """
+    if '*' not in hostname:
+        return hostname
+    return '*' + hostname[hostname.rindex('*') + 1:]
+
+def is_too_broad(hostname: str) -> bool:
+    """True if a wildcard entry would match a whole top-level domain, e.g. '*.com'."""
+    return hostname.startswith('*') and '.' not in hostname[1:].lstrip('.')
+
 
 def is_leading_wildcard(hostname: str) -> bool:
     """True if the only wildcards in the hostname are whole leading labels, e.g. '*.*.example.com'."""
@@ -82,12 +98,16 @@ def covered_by_label_wildcard(hostname: str, wildcard: str) -> bool:
         return False
     return all(w == '*' or w == h for h, w in zip(host_labels, wildcard_labels))
 
-def find_covered_hostnames(hostnames: list, covered_by) -> list:
+def covered_by_ftgt_wildcard(hostname: str, wildcard: str) -> bool:
+    """FortiGate semantics: a leading '*' matches any prefix, e.g. '*-ssl.ls.apple.com' or '*.example.com'."""
+    return hostname != wildcard and hostname.endswith(wildcard[1:])
+
+def find_covered_hostnames(hostnames: list, covered_by, is_wildcard=is_leading_wildcard) -> list:
     """
     Returns (hostname, [wildcards]) pairs for hostnames already matched by another wildcard entry.
-    Only wildcards made of whole leading labels are considered; mid-label wildcards are left alone.
+    By default only wildcards made of whole leading labels are considered; mid-label wildcards are left alone.
     """
-    wildcards = [h for h in hostnames if is_leading_wildcard(h)]
+    wildcards = [h for h in hostnames if is_wildcard(h)]
     covered = []
     for hostname in hostnames:
         matches = [w for w in wildcards if covered_by(hostname, w)]
@@ -224,9 +244,29 @@ def write_compiled_list(dir_path: str):
         report_duplicates(PANW_COMPILED_WITHOUT_COMMENTS, panw)
         report_covered(PANW_COMPILED_WITHOUT_COMMENTS, find_covered_hostnames(panw_sorted, covered_by_label_wildcard), panw)
 
+        # Write a FortiGate specific list, with every wildcard moved to the beginning of the FQDN.
+        broadened = sorted({(h, ftgt_format(h), source) for h, source in entries if ftgt_format(h) != h})
+        too_broad = [(h, f, source) for h, f, source in broadened if is_too_broad(f)]
+        for hostname, formatted, source in too_broad:
+            print(f"WARNING {source}: {hostname!r} would become {formatted!r}, skipped in {FTGT_COMPILED_WITHOUT_COMMENTS}")
+        ftgt = deduplicate((ftgt_format(h), source) for h, source in entries if not is_too_broad(ftgt_format(h)))
+        ftgt_sorted = sorted(ftgt, key=lambda x: x.lower())
+        write_flat_list(FTGT_COMPILED_WITHOUT_COMMENTS, timestamp, ftgt_sorted)
+        print(f"Number of hostnames in {FTGT_COMPILED_WITHOUT_COMMENTS}: {len(ftgt_sorted)}")
+        report_duplicates(FTGT_COMPILED_WITHOUT_COMMENTS, ftgt)
+        # Collapsing '*.*.' is not reported here; it matches the generic lists.
+        rewritten = [b for b in broadened if b not in too_broad and collapse_wildcards(b[0]) != b[1]]
+        if rewritten:
+            print(f"Broadened in {FTGT_COMPILED_WITHOUT_COMMENTS}: {len(rewritten)}")
+            for hostname, formatted, source in rewritten:
+                print(f"  {hostname} -> {formatted} ({source})")
+        report_covered(FTGT_COMPILED_WITHOUT_COMMENTS,
+                       find_covered_hostnames(ftgt_sorted, covered_by_ftgt_wildcard, lambda h: h.startswith('*')), ftgt)
+
         # Calculate hashes and write to file-validation.hash
         with open(HASH_FILE, 'w') as hashfile:
-            for filename in [COMPILED_WITH_COMMENTS, COMPILED_WITHOUT_COMMENTS, PANW_COMPILED_WITHOUT_COMMENTS]:
+            for filename in [COMPILED_WITH_COMMENTS, COMPILED_WITHOUT_COMMENTS, PANW_COMPILED_WITHOUT_COMMENTS,
+                             FTGT_COMPILED_WITHOUT_COMMENTS]:
                 hash_val = calculate_file_hash(filename)
                 hashfile.write(f"{hash_val}  {filename}\n")
 
